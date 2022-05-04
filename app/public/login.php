@@ -5,18 +5,29 @@ require('../Inc/bootstrap.php');
 use App\Controller\AuthController;
 
 if(isset($_POST['login']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
-    AuthController::login($_POST);
+    $message = AuthController::login($_POST);
 }
 
 ?>
 <main role="main" class="mt-5">
     <div class="container">
+        <div id="message">
+
+                <?php
+                if (isset($message) && !empty($message)) {
+                    echo " <p class='alert alert-info'>" .$message."</p>";
+                }
+                ?>
+
+
+        </div>
+
         <form class="" method="POST" action="">
             <div class="form-group">
                 <label>
-                    Username
+                    Email
                 </label>
-                <input type="text" name="username" class="form-control" placeholder="User name">
+                <input type="text" name="email" class="form-control" placeholder="Your email">
             </div>
             <div class="form-group">
                 <lable>Password</lable>

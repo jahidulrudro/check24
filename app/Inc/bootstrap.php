@@ -10,3 +10,6 @@ require_once PROJECT_ROOT_PATH . "/helper/Helper.php";
 //include AuthController
 
 require_once PROJECT_ROOT_PATH . "/Controller/AuthController.php";
+
+//include blogcontroller
+require_once PROJECT_ROOT_PATH . "/Controller/BlogController.php";

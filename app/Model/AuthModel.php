@@ -58,9 +58,24 @@ class AuthModel
         return false;
     }
 
-    public static function login($email, $password)
+    public static function login($email, $password): ?string
     {
+        $pdo = Database::getDatabaseConnect();
+        $sql = "select * from register where email = :email AND status='1'";
+        $handle = $pdo->prepare($sql);
+        $params = ['email'=>$email];
+        $handle->execute($params);
+        if($handle->rowCount() > 0) {
+            $getRow = $handle->fetch(\PDO::FETCH_ASSOC);
+            if (password_verify($password, $getRow['password'])) {
+                unset($getRow['password']);
+                $_SESSION = $getRow;
+                header('location:index.php');
+            }else{
+                return "Email address or password is not correct";
+            }
+        }
 
-
+        return "Login is invalid";
     }
 }

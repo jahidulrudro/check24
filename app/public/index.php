@@ -1,27 +1,45 @@
 <?php
 require('layouts/header.php');
+require('../Inc/bootstrap.php');
+
+use App\Controller\BlogController;
+
+$blogPosts = BlogController::getPost();
+
 ?>
 
+
 <main role="main">
-    <div class="container-fluid m-3">
-       <div class="row single-blog">
+    <?php if (!empty($blogPosts) && isset($blogPosts)) {
+        foreach ($blogPosts as $post) {
+            ?>
+    <div class="container-fluid m-3 single-blog">
+
+       <div class="row">
            <div class="col-md-9 single-blog-text">
-               <div class="single-blog-header-text">
+               <div class="single-blog-header-text d-flex">
+                   <p>
+                    <a href="singlepostdetails.php?id=<?php echo ($post['id']);?>"> <?php echo $post['created_at']; ?> </a>
+                   </p> -
+                   <p> <a href="singlepostdetails.php?id=<?php echo $post['id'];?>"> <?php echo $post['title']; ?> </a></p>
                </div>
                <p>
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac quam sapien. Nunc risus lacus, suscipit at consequat ac, hendrerit bibendum augue. Vivamus et tellus nunc. Nulla mollis porta ante et suscipit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec nunc nulla, fermentum at dictum id, dapibus in elit. Sed eu efficitur justo, vitae hendrerit enim. Donec risus dui, hendrerit eget ex ac, consequat feugiat odio. Praesent tellus augue, cursus eget mollis ac, pretium vel tellus. Proin blandit ut erat vitae pharetra. Pellentesque tristique nisl tortor. Vivamus laoreet nisl justo, in porttitor leo rutrum ut. Ut ut nisl quis felis tincidunt blandit. Aenean non tempor sapien. Pellentesque elit felis, placerat sed congue convallis, rhoncus ac tellus. Curabitur vitae lorem sed mauris commodo efficitur. Pellentesque tempor, orci eget scelerisque egestas, sapien massa molestie felis, eu consequat mauris metus quis ante. Vestibulum ultricies nunc sed purus sollicitudin hendrerit. Sed nec volutpat dolor. In hac habitasse platea dictumst. Duis finibus erat ullamcorper nisi porttitor sodales. Curabitur dapibus, ex ut accumsan congue, mi est pellentesque lectus, vel porta diam tortor et dui. Suspendisse iaculis diam eget ultricies ornare. Vivamus eget iaculis mi. Aenean eget quam ut sem mollis condimentum. Donec nec molestie nisi.
-                  <a href="singlepostdetails.php?id=">....</a>
+                   <?php echo substr($post['blogtext'], 0 , 1000) .' ...' ?>
                </p>
            </div>
-           <div class="col-md-3 single-blog-image">
-               <img src="https://via.placeholder.com/350x150" alt="">
-           </div>
-           <div class="single-blog-footer-text clearfix">
-               <div class="pull-left">Author</div>
-               <div class="pull-right">Comments</div>
+           <div class="col-md-3 ">
+               <a href="singlepostdetails.php?id='<?php echo $post['id'];?>'"> <img class="img img-fluid single-blog-image" src="<?php echo $post['url'] ?>" alt=""></a>
            </div>
        </div>
+           <br>
+           <div class="single-blog-footer-text clearfix">
+               <div class="pull-left">Author: <a href="#" data-toggle="modal" data-target="#exampleModal"><?php echo BlogController::getAuthorNameById($post['authorid']) ?></a> </div>
+               <a href="singlepostdetails.php?id=<?php echo $post['id'];?>">  <div class="pull-right">Comments</div></a>
+           </div>
+       </div>
+
     </div>
+    <?php } }?>
     <div class="container">
 
         <nav aria-label="Page navigation example">
@@ -33,6 +51,39 @@ require('layouts/header.php');
                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
         </nav>
+    </div>
+
+    <!-- Author Modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">All Author List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                    <?php
+                    $authors = \App\Controller\AuthorController::getAllAuthor();
+                    foreach($authors as $author) {
+                    ?>
+                        <li><?php echo $author['fullname']; ?></li>
+
+                     <?php  } ?>
+
+                     <ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 

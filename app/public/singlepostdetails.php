@@ -1,5 +1,16 @@
 <?php
 require('layouts/header.php');
+require('../Inc/bootstrap.php');
+
+use App\Controller\BlogController;
+
+$id = filter_var((int) $_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+
+if($id) {
+    $singlePost = BlogController::getPostById($id);
+}
+
+
 ?>
 
 <main role="main">
@@ -7,25 +18,27 @@ require('layouts/header.php');
     <div class="container mt-3 single-blog">
         <div class="row">
             <div class="date-time">
-
-            </div>
-            <div class="blog-title single-blog-text">
-                <h3>My blog Title</h3>
+              <?php echo $singlePost['created_at']; ?>
             </div>
         </div>
         <div class="row">
-            <div class="blog-image single-blog-image text-center">
-             <img src="https://via.placeholder.com/900x200" alt="">
+            <div class="blog-title single-blog-text">
+                <h3>  <?php echo $singlePost['title']; ?></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="">
+             <img class="img img-fluid" src="<?php echo $singlePost['url'] ?>" alt="">
             </div>
         </div>
         <div class="row">
             <div class="blog-text">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac quam sapien. Nunc risus lacus, suscipit at consequat ac, hendrerit bibendum augue. Vivamus et tellus nunc. Nulla mollis porta ante et suscipit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec nunc nulla, fermentum at dictum id, dapibus in elit. Sed eu efficitur justo, vitae hendrerit enim. Donec risus dui, hendrerit eget ex ac, consequat feugiat odio. Praesent tellus augue, cursus eget mollis ac, pretium vel tellus. Proin blandit ut erat vitae pharetra. Pellentesque tristique nisl tortor. Vivamus laoreet nisl justo, in porttitor leo rutrum ut. Ut ut nisl quis felis tincidunt blandit. Aenean non tempor sapien. Pellentesque elit felis, placerat sed congue convallis, rhoncus ac tellus. Curabitur vitae lorem sed mauris commodo efficitur. Pellentesque tempor, orci eget scelerisque egestas, sapien massa molestie felis, eu consequat mauris metus quis ante. Vestibulum ultricies nunc sed purus sollicitudin hendrerit. Sed nec volutpat dolor. In hac habitasse platea dictumst. Duis finibus erat ullamcorper nisi porttitor sodales. Curabitur dapibus, ex ut accumsan congue, mi est pellentesque lectus, vel porta diam tortor et dui. Suspendisse iaculis diam eget ultricies ornare. Vivamus eget iaculis mi. Aenean eget quam ut sem mollis condimentum. Donec nec molestie nisi.
+                    <?php echo $singlePost['blogtext'] ?>
                 </p>
 
                 <p>
-                    <strong>Author: Mohammad Jahidul Alam</strong>
+                    <strong>Author: <?php echo BlogController::getAuthorNameById($singlePost['authorid']) ?></strong>
                 </p>
 
             </div>

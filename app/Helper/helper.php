@@ -11,7 +11,7 @@ class Helper
      */
     public static function filterPostdata ($input): string
     {
-       return self::noSpecialCharacters(filter_var($input, FILTER_SANITIZE_STRING));
+       return trim(self::noSpecialCharacters(filter_var($input, FILTER_SANITIZE_STRING)));
     }
 
 

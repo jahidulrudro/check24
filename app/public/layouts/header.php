@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,9 +42,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.php">ubersicht <span class="sr-only">(current)</span></a>
             </li>
+            <?php if(isset($_SESSION['id']) && !empty($_SESSION['fullname'])) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="newentry.php">[Neuer Eintrag]</a>
             </li>
+            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link" href="imprint.php">Impressum</a>
             </li>
@@ -49,12 +54,16 @@
     </div>
     <div class="pull-right">
         <ul class="navbar-nav mr-auto text-white">
+            <?php if(!isset($_SESSION['id']) && empty($_SESSION['fullname'])) { ?>
             <li class="nav-item active">
                 <a class="nav-link" href="login.php">Login</a>
             </li>
+            <?php  } ?>
+            <?php if(isset($_SESSION['id']) && !empty($_SESSION['fullname'])) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="logout.php">Logout</a>
             </li>
+            <?php } ?>
         </ul>
     </div>
 </nav>

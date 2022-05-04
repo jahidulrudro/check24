@@ -17,11 +17,10 @@ class AuthController
     {
 
         $fullName = Helper::filterPostdata($data['fullName']);
-        $userName = Helper::filterPostdata($data['userName']);
         $email = Helper::filterPostdata($data['email']);
         $password = Helper::filterPostdata($data['password']);
 
-        if (empty($fullName) || empty($userName) || empty($email) || empty($password)) {
+        if (empty($fullName) || empty($email) || empty($password)) {
             return "required filed should not be empty";
         }
 
@@ -34,15 +33,15 @@ class AuthController
         }
 
 
-       $message =  AuthModel::register($fullName, $userName, $email,$password);
+       $message =  AuthModel::register($fullName, $email,$password);
 
        return $message;
     }
 
-    public static function login( array $data) : bool
+    public static function login( array $data) : ?string
     {
-        $email = Helper::filterPostdata($_POST['email']);
-        $password = Helper::filterPostdata($_POST['password']);
+        $email = Helper::filterPostdata($data['email']);
+        $password = Helper::filterPostdata($data['password']);
 
         if (empty($email) || empty($password)) {
             return "required filed should not be empty";
@@ -51,7 +50,10 @@ class AuthController
         if (!Helper::validateEmail($email)) {
             return "Email address is not Valid";
         }
-        
+
+       $message =  AuthModel::login($email, $password);
+
+        return $message;
 
     }
 

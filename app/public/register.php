@@ -13,13 +13,13 @@ if (isset($_POST['register']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 <main role="main" class="mt-5">
     <div class="container">
         <div id="message">
-            <p class="alert alert-info">
+
                 <?php
                 if (isset($message) && !empty($message)) {
-                    echo $message;
+                    echo " <p class='alert alert-info'>" .$message."</p>";
                 }
                 ?>
-            </p>
+
 
         </div>
         <form class="" method="POST">
