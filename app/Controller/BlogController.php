@@ -10,7 +10,11 @@ use App\Helper;
 
 
 class BlogController {
-
+    /**
+     * This method to add new blog post
+     * @param $data
+     * @return string
+     */
     public static function newPost($data): string
     {
         $pdo = Database::getDatabaseConnect();
@@ -29,11 +33,23 @@ class BlogController {
 
     }
 
+    /**
+     * This method get blog post for overview page
+     * @return string
+     */
+
     public  static function getPost(): array
     {
         return  BlogModel::getPost();
 
     }
+
+    /**
+     * This method to get author name by id
+     * @param $id
+     * @return string
+     */
+
 
     public static function getAuthorNameById(int $id): string
     {
@@ -41,6 +57,13 @@ class BlogController {
         return $result['fullname'];
 
     }
+
+    /**
+     * This method to get blog post  by id
+     * @param $id
+     * @return array
+     */
+
 
     public static function getPostById(int $id): array
     {

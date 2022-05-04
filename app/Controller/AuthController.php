@@ -12,6 +12,11 @@ use App\Helper;
 
 class AuthController
 {
+    /**
+     * This method is to register author
+     * @param $data
+     * @return string
+     */
 
     public static function register(array $data): string
     {
@@ -37,6 +42,12 @@ class AuthController
 
        return $message;
     }
+
+    /**
+     * This method handle authentication
+     * @param $data
+     * @return string
+     */
 
     public static function login( array $data) : ?string
     {
