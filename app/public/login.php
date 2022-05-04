@@ -1,6 +1,5 @@
 <?php
 require('layouts/header.php');
-require('../Inc/bootstrap.php');
 
 use App\Controller\AuthController;
 

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . "../../../vendor/autoload.php";
+
 define("PROJECT_ROOT_PATH", __DIR__ . "/../");
 
 // include main configuration file
