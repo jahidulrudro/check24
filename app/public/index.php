@@ -3,6 +3,7 @@ require('layouts/header.php');
 require('../Inc/bootstrap.php');
 
 use App\Controller\BlogController;
+use App\Controller\AuthorController;
 
 $blogPosts = BlogController::getPost();
 
@@ -69,7 +70,7 @@ $blogPosts = BlogController::getPost();
                 <div class="modal-body">
                     <ul>
                     <?php
-                    $authors = \App\Controller\AuthorController::getAllAuthor();
+                    $authors = AuthorController::getAllAuthors();
                     foreach($authors as $author) {
                     ?>
                         <li><?php echo $author['fullname']; ?></li>

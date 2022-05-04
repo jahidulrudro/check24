@@ -13,3 +13,6 @@ require_once PROJECT_ROOT_PATH . "/Controller/AuthController.php";
 
 //include blogcontroller
 require_once PROJECT_ROOT_PATH . "/Controller/BlogController.php";
+
+//include AuthorController
+require_once PROJECT_ROOT_PATH . "/Controller/AuthorController.php";
